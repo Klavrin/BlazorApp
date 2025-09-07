@@ -1,5 +1,6 @@
 using BlazorApp2.Application.Users.Commands.CreateUser;
 using BlazorApp2.Application.Users.Commands.DeleteUser;
+using BlazorApp2.Application.Users.Commands.UpdateUser;
 using BlazorApp2.Application.Users.Queries.GetUser;
 using MediatR;
 
@@ -39,6 +40,20 @@ public class UsersController : ControllerBase
     
     [HttpPost("create-user")]
     public async Task<IActionResult> CreateUser(CreateUserCommand command)
+    {
+        try
+        {
+            var user = await _mediator.Send(command);
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    [HttpPut("update-user")]
+    public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
     {
         try
         {
