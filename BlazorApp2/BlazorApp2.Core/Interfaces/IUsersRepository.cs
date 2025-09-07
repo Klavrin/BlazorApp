@@ -6,6 +6,7 @@ public interface IUsersRepository
 {
     public Task<User> CreateUserAsync(User user, CancellationToken cancellationToken);
     public Task<User?> GetUserAsync(Guid id, CancellationToken cancellationToken);
+    public Task<User?> UpdateUserAsync(User user, CancellationToken cancellationToken);
     public Task<User?> DeleteUserAsync(Guid id, CancellationToken cancellationToken);
 }
  
