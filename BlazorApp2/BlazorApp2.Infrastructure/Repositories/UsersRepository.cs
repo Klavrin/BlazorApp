@@ -24,6 +24,19 @@ namespace BlazorApp2.Infrastructure.Repositories
         {
             return await _context.Users.FindAsync(new object?[] { id }, cancellationToken);
         }
+        
+        public async Task<User?> UpdateUserAsync(User user, CancellationToken cancellationToken)
+        {
+            var existingUser = await _context.Users.FindAsync(new object?[] { user.Id }, cancellationToken);
+            if (existingUser == null)
+            {
+                return null;
+            }
+
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+            await _context.SaveChangesAsync(cancellationToken);
+            return existingUser;
+        }
 
         public async Task<User?> DeleteUserAsync(Guid id, CancellationToken cancellationToken)
         {
